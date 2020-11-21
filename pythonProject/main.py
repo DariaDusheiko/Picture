@@ -31,7 +31,7 @@ class MyWidget(QMainWindow):
         drawer = ImageDraw.Draw(im)
         drawer.ellipse((
             (int(0.8 * 500), -int(0.2 * 500)),
-            (int(1.2 * 500), int(0.2 * 500))),
+            (int(1.2 * 400), int(0.2 * 500))),
             sun_color)
         drawer.ellipse((
             (int(0.8 * 250), -int(0.2 * 500)),
