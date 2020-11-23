@@ -28,7 +28,7 @@ class MyWidget(QMainWindow):
     def run1(self):  # создаём функцию, которой при входе не задаются аргументы
         im = Image.new("RGB", (500, 500))
         k = ['#87CEEB', '#017B92', '#874535', '#FFFFFF', '#FFCF40']
-        p = random.randint(1, 5)
+        p = random.randint(0, 4)
         drawer = ImageDraw.Draw(im)
         drawer.ellipse((
             (int(0.8 * 500), -int(0.2 * 500)),
@@ -39,7 +39,7 @@ class MyWidget(QMainWindow):
             (int(0.8 * 250), -int(0.2 * 500)),
             (int(1.2 * 250), int(0.2 * 500))),
             k[p])
-        p = random.randint(1, 5)
+        p = random.randint(0, 4)
         drawer.ellipse((
             (int(0.8 * 100), -int(0.2 * 50)),
             (int(1.2 * 100), int(0.2 * 50))),
