@@ -10,33 +10,17 @@ class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('addEditCoffeeForm.ui', self)
-        self.loadTable('Data.csv')
+        uic.loadUi('4.ui', self)
 
     def loadTable(self, table_name):
         data = [{
             'ID': 1,
-            'SORT': 'Капучино',
+            'SORT': 'Латте макиато',
             'LEVEL': 'Хорошо обжарено',
             'TIPE': 'Молотый',
             'TASTY': 'Карамельный',
             'PRICE': 30,
             'V': 10
-        }, {
-            'ID': 2,
-            'SORT': 'Капучино',
-            'LEVEL': 'Хорошо обжарено',
-            'TIPE': 'Зерновой',
-            'TASTY': 'С корицей',
-            'PRICE': 67,
-            'V': 15
-        }, {
-            'ID': 3,
-            'SORT': 'Капучино',
-            'LEVEL': 'Мало обжарено',
-            'TIPE': 'Зерновой',
-            'TASTY': 'С молоком',
-            'PRICE': 50,
-            'V': 13
         }]
 
         with open('dictwriter.csv', 'w', newline='') as f:
