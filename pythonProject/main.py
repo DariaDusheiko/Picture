@@ -1,56 +1,71 @@
-from PIL import Image, ImageDraw
+import csv
 import sys
-import random
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
-import sys  #  загружаем библиотеки и различные модули
-from PyQt5 import uic  #  загружаем библиотеки и различные модули
-from PyQt5.QtWidgets import QApplication, QMainWindow  #  загружаем библиотеки и различные модули
-from PyQt5.QtWidgets import QWidget, QPushButton  #  загружаем библиотеки и различные модули
-from PyQt5.QtGui import QPixmap  #  загружаем библиотеки и различные модули
-from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow  #  загружаем библиотеки и различные модули
-from PIL import Image, ImageFilter  #  загружаем библиотеки и различные модули
-from PIL import Image, ImageDraw #  загружаем библиотеки и различные модули
-from PyQt5.QtWidgets import QColorDialog  #  загружаем библиотеки и различные модули
-from PyQt5.QtWidgets import (QWidget, QLCDNumber, QSlider,
-    QVBoxLayout, QApplication)  #  загружаем библиотеки и различные модули
-from PyQt5.QtCore import Qt #  загружаем библиотеки и различные модули
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
 
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)  # соединили проект в дизанере и программу
+        uic.loadUi('4.ui', self)
+        self.loadTable('Data.csv')
 
-        self.pushButton.clicked.connect(self.run1)  # делаем возможность нажатия на кнопку, перенаправляет нас в функцию
-        self.pushButton.setStyleSheet("background-color: rgb(153, 50, 204);")  # изменяем цвет кнопки
+    def loadTable(self, table_name):
+        data = [{
+            'ID': 1,
+            'SORT': 'Экспрессо',
+            'LEVEL': 'Хорошо обжарено',
+            'TIPE': 'Молотый',
+            'TASTY': 'Карамельный',
+            'PRICE': 30,
+            'V': 10
+        }, {
+            'ID': 2,
+            'SORT': 'Экспрессо',
+            'LEVEL': 'Хорошо обжарено',
+            'TIPE': 'Зерновой',
+            'TASTY': 'С корицей',
+            'PRICE': 67,
+            'V': 15
+        }, {
+            'ID': 3,
+            'SORT': 'Экспрессо',
+            'LEVEL': 'Мало обжарено',
+            'TIPE': 'Зерновой',
+            'TASTY': 'С молоком',
+            'PRICE': 50,
+            'V': 13
+        }]
 
-    def run1(self):  # создаём функцию, которой при входе не задаются аргументы
-        im = Image.new("RGB", (500, 500))
-        k = ['#87CEEB', '#017B92', '#874535', '#FFFFFF', '#FFCF40']
-        p = random.randint(0, 4)
-        drawer = ImageDraw.Draw(im)
-        drawer.ellipse((
-            (int(0.8 * 500), -int(0.2 * 500)),
-            (int(1.2 * 400), int(0.2 * 500))),
-            k[p])
-        p = random.randint(0, 4)
-        drawer.ellipse((
-            (int(0.8 * 250), -int(0.2 * 500)),
-            (int(1.2 * 250), int(0.2 * 500))),
-            k[p])
-        p = random.randint(0, 4)
-        drawer.ellipse((
-            (int(0.8 * 100), -int(0.2 * 50)),
-            (int(1.2 * 100), int(0.2 * 50))),
-            k[p])
-        im.save('res1.jpg')  # сохраняем результат
-        self.pixmap = QPixmap('res1.jpg')  # загружаем картинку
-        self.label.setPixmap(self.pixmap)  # открываем картинку в label
+        with open('dictwriter.csv', 'w', newline='') as f:
+            writer = csv.DictWriter(
+                f, fieldnames=list(data[0].keys()),
+                delimiter=';', quoting=csv.QUOTE_NONNUMERIC)
+            writer.writeheader()
+            for d in data:
+                writer.writerow(d)
+
+        with open('dictwriter.csv', encoding="utf8") as csvfile:
+            reader = csv.reader(csvfile,
+                                delimiter=';', quotechar='"')
+            title = next(reader)
+            self.tableWidget.setColumnCount(len(title))
+            self.tableWidget.setHorizontalHeaderLabels(title)
+            self.tableWidget.setRowCount(0)
+            for i, row in enumerate(reader):
+                self.tableWidget.setRowCount(
+                    self.tableWidget.rowCount() + 1)
+                for j, elem in enumerate(row):
+                    self.tableWidget.setItem(
+                        i, j, QTableWidgetItem(elem))
+        self.tableWidget.resizeColumnsToContents()
+
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyWidget()
     ex.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
