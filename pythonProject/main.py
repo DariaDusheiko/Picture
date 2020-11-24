@@ -9,13 +9,13 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('4.ui', self)
+        uic.loadUi('addEditCoffeeForm.ui', self)
         self.loadTable('Data.csv')
 
     def loadTable(self, table_name):
         data = [{
             'ID': 1,
-            'SORT': 'Экспрессо',
+            'SORT': 'Капучино',
             'LEVEL': 'Хорошо обжарено',
             'TIPE': 'Молотый',
             'TASTY': 'Карамельный',
@@ -23,7 +23,7 @@ class MyWidget(QMainWindow):
             'V': 10
         }, {
             'ID': 2,
-            'SORT': 'Экспрессо',
+            'SORT': 'Капучино',
             'LEVEL': 'Хорошо обжарено',
             'TIPE': 'Зерновой',
             'TASTY': 'С корицей',
@@ -31,7 +31,7 @@ class MyWidget(QMainWindow):
             'V': 15
         }, {
             'ID': 3,
-            'SORT': 'Экспрессо',
+            'SORT': 'Капучино',
             'LEVEL': 'Мало обжарено',
             'TIPE': 'Зерновой',
             'TASTY': 'С молоком',
