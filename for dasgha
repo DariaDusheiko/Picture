@@ -26,7 +26,7 @@ class Lab:
     def get_tile_id(self, position):
         return self.map[position[1]][position[0]]
 
-
+jyfluyf
 class Hero:
     def __init__(self, position, filename):
         self.x, self.y = position
